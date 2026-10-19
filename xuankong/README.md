@@ -12,7 +12,9 @@ npm install
 npm run build
 ```
 
-输出到 `../docs/xuankong/`。本地查看需要一个静态服务器，例如在仓库根目录执行 `python3 -m http.server`，然后打开 `/docs/xuankong/`。
+输出到 `../docs/xuankong/`。在线访问：https://jackywolf2008.github.io/yingxian-tower/xuankong/
+
+本地查看需要一个静态服务器，例如在仓库根目录执行 `python3 -m http.server`，然后打开 `/docs/xuankong/`。
 
 模型是结构示意，不是测绘。尺寸和两处互相不一致的记载，写在页面底部的“说明与出处”里。
 

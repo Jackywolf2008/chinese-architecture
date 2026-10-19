@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 
+const ROCK_CANVAS = rockCanvas();
+
 // 坐标：x 南负北正，y 向上，z 朝东、朝向峡谷。
 // 楼的进深约 4 米。飞梁从岩内伸到前廊；埋入段画得比露在廊外的更长，插入深度的两说见正文。
 const SOUTH = { x0: -7.4, x1: 0.6, z0: 0.15, z1: 4.15, floors: [23.8, 28.8, 33.8] };
@@ -29,7 +31,7 @@ export const INFO = {
 const CAT_PAGE = {
   beam: 'beams', wedge: 'joinery', socket: 'beams', post: 'posts',
   col: 'plan', brk: 'south', wall: 'plan', deck: 'plan', roof: 'plan', glaze: 'plan',
-  rail: 'bridge', figure: 'three', plaque: 'plan', stair: 'court', rock: 'site', cave: 'bridge',
+  rail: 'bridge', figure: 'sanjiao', plaque: 'plan', stair: 'court', rock: 'site', cave: 'bridge',
 };
 
 export function createWorld() {
@@ -72,8 +74,15 @@ export function createWorld() {
   const tile = tileTex();
   const roofMat = mat('roof', 0xffffff, { map: tile, roughness: 0.58, metalness: 0.06 });
   const ridgeMat = mat('glaze', 0x2c6a48, { roughness: 0.42, metalness: 0.14 });
-  const rockMats = [0xb5a692, 0xab9d8a, 0xbfb19a, 0xa59482].map(h => mat('rock', h, { roughness: 0.94 }));
   const plaqueCache = new Map();
+  function rockFace(color, sx, sy, sz) {
+    const map = new THREE.CanvasTexture(ROCK_CANVAS);
+    map.colorSpace = THREE.SRGBColorSpace;
+    map.wrapS = map.wrapT = THREE.RepeatWrapping;
+    map.anisotropy = 8;
+    map.repeat.set(Math.max(1, Math.max(sx, sz) / 22), Math.max(1, sy / 16));
+    return mat('rock', color, { map, roughness: 0.96 });
+  }
 
   function step(name, level, tag, text, cam) {
     const group = new THREE.Group();
@@ -122,31 +131,34 @@ export function createWorld() {
   return { cliff, root, env, lab, beam: lab.userData.beam, steps, labels, CUT, ROCK_CUT, byCat, INFO, CAT_PAGE };
 
   function buildCliff() {
-    const band = 2.15;
-    for (let i = 0; i < 28; i++) {
-      const y = i * band + band / 2;
-      const color = rockMats[i % rockMats.length];
-      const zJ = Math.sin(i * 1.25) * 0.22;
-      const niche = y > 16 && y < 47;
-      if (niche) {
-        addMesh(cliff, 'rock', 'site', box(34, band * 0.992, 8), color, -29, y, -3.2 + zJ);
-        addMesh(cliff, 'rock', 'site', box(46, band * 0.992, 8), color, 40, y, -3.2 + zJ);
-        addMesh(cliff, 'rock', 'site', box(44, band * 0.992, 7.2), color, 2, y, -4.4 + zJ * 0.3);
-      } else {
-        addMesh(cliff, 'rock', 'site', box(96, band * 0.992, 8), color, 2, y, -3.5 + zJ);
-      }
-    }
+    const rock = (x, y, z, sx, sy, sz, color) => {
+      addMesh(cliff, 'rock', 'site', box(sx, sy, sz), rockFace(color, sx, sy, sz), x, y, z);
+    };
+    // 一整面石灰岩，不再切成色带。凹龛的范围和原来一致：后壁退进去，左右两颊留在外面。
+    rock(2, 8, -3.5, 96, 16, 8, 0xb7a892);
+    rock(2, 32, -4.4, 44, 32, 7.2, 0xa89886);
+    rock(-29, 32, -3.2, 34, 32, 8, 0xc2b3a0);
+    rock(40, 32, -3.2, 46, 32, 8, 0xbbae9c);
+    rock(2, 52.5, -3.5, 96, 9, 8, 0xc8b9a6);
     // 伞檐。北楼屋脊大约到 47 米，檐底留出空隙，避免和殿顶叠在一起。
-    addMesh(cliff, 'rock', 'site', box(46, 2.6, 9), rockMats[2], 2, 50.6, 1.15);
-    addMesh(cliff, 'rock', 'site', box(38, 1.2, 6.5), rockMats[0], 2, 52.4, 2.4);
+    rock(2, 50.6, 1.15, 46, 2.6, 9, 0xb5a690);
+    rock(2, 52.4, 2.4, 38, 1.2, 6.5, 0xcabb9e);
+    // 两颊上几道长短不一的岩层和裂隙，不横过楼阁。
+    rock(-36, 24, 0.55, 8, 0.65, 1.4, 0xd0c2ae);
+    rock(-33, 38, 0.4, 6, 0.45, 1.15, 0xcbbda8);
+    rock(32, 28, 0.5, 7, 0.55, 1.3, 0xd0c2ae);
+    rock(46, 40, 0.35, 6, 0.4, 1.1, 0xc8baa4);
+    for (const [x, y, h] of [[-38, 30, 12], [-24, 22, 7], [28, 34, 10], [52, 24, 8]]) {
+      rock(x, y, 1.05, 0.14, h, 0.22, 0x8d7d6c);
+    }
     mark('brow', '崖檐如伞', 8, 51.2, 4.6, 'world');
     mark('niche', '凹进去的崖龛', -16, 36, 1.2, 'world');
     // 立柱落脚的岩台
-    addMesh(cliff, 'rock', 'site', box(7.2, 1.5, 2.4), rockMats[1], -3.4, 11.2, 3.5);
-    addMesh(cliff, 'rock', 'site', box(4.2, 1.4, 2.2), rockMats[3], 5.6, 12.4, 3.6);
-    addMesh(cliff, 'rock', 'site', box(6.4, 1.5, 2.4), rockMats[1], 14.1, 13.2, 3.5);
+    rock(-3.4, 11.2, 3.5, 7.2, 1.5, 2.4, 0xb3a48f);
+    rock(5.6, 12.4, 3.6, 4.2, 1.4, 2.2, 0xa59482);
+    rock(14.1, 13.2, 3.5, 6.4, 1.5, 2.4, 0xb3a48f);
     // 下院坐着的石台
-    addMesh(cliff, 'rock', 'site', box(11.2, 1.15, 4.6), rockMats[2], -14.2, 20.35, 1.7);
+    rock(-14.2, 20.35, 1.7, 11.2, 1.15, 4.6, 0xbfb19a);
     // 远山和谷地
     addMesh(env, 'env', '', box(140, 78, 10), mat('env', 0x6a6156, { roughness: 1 }), 4, 32, -16);
     addMesh(env, 'env', '', box(120, 0.4, 28), mat('env', 0x8d826f, { roughness: 1 }), 0, 0.05, 14);
@@ -182,7 +194,7 @@ export function createWorld() {
     ];
     SOUTH.floors.forEach((y, i) => {
       step(names[i][0], 3 + i, 'floor', sText[i], 'south');
-      story('south', SOUTH, y, i === 2, names[i][0]);
+      story(names[i][1], SOUTH, y, i === 2, names[i][0]);
       mark(names[i][1], names[i][2], (SOUTH.x0 + SOUTH.x1) / 2, y + 1.6, SOUTH.z1 + 0.3);
     });
 
@@ -216,7 +228,7 @@ export function createWorld() {
     ];
     NORTH.floors.forEach((y, i) => {
       step(nNames[i][0], 8 + i, 'floor', nText[i], i === 2 ? 'sanctum' : 'north');
-      story('three', NORTH, y, i === 2, nNames[i][0]);
+      story(nNames[i][1], NORTH, y, i === 2, nNames[i][0]);
       mark(nNames[i][1], nNames[i][0], (NORTH.x0 + NORTH.x1) / 2, y + 1.7, NORTH.z1 + 0.25);
       if (i === 2) figures(y);
     });
@@ -339,7 +351,7 @@ export function createWorld() {
     head.position.y = 0.92 * s;
     for (const m of [body, head]) {
       m.castShadow = true;
-      m.userData = { cat: 'figure', page: 'three', name: text };
+      m.userData = { cat: 'figure', page: 'sanjiao', name: text };
       g.add(m);
     }
     g.position.set(x, y, z);
@@ -447,6 +459,50 @@ export function createWorld() {
   }
 }
 
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+function rockCanvas() {
+  const rnd = mulberry32(11);
+  const c = document.createElement('canvas');
+  c.width = 512;
+  c.height = 512;
+  const g = c.getContext('2d');
+  g.fillStyle = '#f4efe6';
+  g.fillRect(0, 0, 512, 512);
+  for (let i = 0; i < 36; i++) {
+    const v = 150 + (rnd() * 70 | 0);
+    g.fillStyle = `rgba(${v},${v - 6},${v - 16},${0.07 + rnd() * 0.1})`;
+    g.beginPath();
+    g.ellipse(rnd() * 512, rnd() * 512, 50 + rnd() * 140, 36 + rnd() * 100, rnd() * 6, 0, Math.PI * 2);
+    g.fill();
+  }
+  for (let i = 0; i < 180; i++) {
+    const v = 130 + (rnd() * 70 | 0);
+    g.fillStyle = `rgba(${v},${v - 8},${v - 16},${0.12 + rnd() * 0.16})`;
+    g.fillRect(rnd() * 512, rnd() * 512, 2 + rnd() * 4, 2 + rnd() * 3);
+  }
+  g.lineWidth = 1.4;
+  for (let i = 0; i < 7; i++) {
+    g.strokeStyle = `rgba(70,55,40,${0.1 + rnd() * 0.1})`;
+    let x = rnd() * 512;
+    let y = rnd() * 512;
+    g.beginPath();
+    g.moveTo(x, y);
+    for (let k = 0; k < 3 + (rnd() * 3 | 0); k++) {
+      x += (rnd() - 0.35) * 46;
+      y += (rnd() - 0.5) * 54;
+      g.lineTo(x, y);
+    }
+    g.stroke();
+  }
+  return c;
+}
 function box(sx, sy, sz) { return new THREE.BoxGeometry(sx, sy, sz); }
 function xs(a, b, n) { return Array.from({ length: n }, (_, i) => a + (b - a) * (i + 0.5) / n); }
 
