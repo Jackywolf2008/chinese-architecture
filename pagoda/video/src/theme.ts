@@ -26,4 +26,4 @@ export const BAND = `linear-gradient(90deg,${C.qing} 0 18%,${C.lu} 18% 33%,${C.h
 // 纸面噪点，与页面舞台背景相同
 export const NOISE = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .18 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 
-export const SITE_URL = 'jackywolf2008.github.io/yingxian-tower';
+export const SITE_URL = 'jackywolf2008.github.io/chinese-architecture';

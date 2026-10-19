@@ -2,7 +2,7 @@
 
 用 [Remotion](https://www.remotion.dev/) 做的一段约 90 秒的介绍视频（1920×1080，30fps），成片在 `out/yingxian-tower-intro.mp4`，封面图在 `out/intro-poster.jpg`。
 
-在线观看：https://jackywolf2008.github.io/yingxian-tower/video/ ——视频单独一页，和立体书分开。`npm run page` 用 `site/index.html` 生成这个页面（章节时间按 `src/timeline.json` 计算），连同成片、封面一起输出到 `../../docs/video/`。
+在线观看：https://jackywolf2008.github.io/chinese-architecture/video/ ——视频单独一页，和立体书分开。`npm run page` 用 `site/index.html` 生成这个页面（章节时间按 `src/timeline.json` 计算），连同成片、封面一起输出到 `../../docs/video/`。
 
 画面里的木塔不是另外建模，而是从这本立体书（`../../docs/pagoda/`）里逐帧抓下来的真实三维画面，标注、字幕、配乐再由 Remotion 合成。
 

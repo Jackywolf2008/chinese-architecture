@@ -2,7 +2,7 @@
 
 一本可以一层层点进去的悬空寺立体书。和应县木塔是两本独立的书。阅读器、模型和正文是分开的，`npm run build` 再打成一个页面。
 
-在线访问：https://jackywolf2008.github.io/yingxian-tower/hanging-temple/
+在线访问：https://jackywolf2008.github.io/chinese-architecture/hanging-temple/
 
 - `src/engine.js`：场景、相机、墨线、翻页、导览、重建播放
 - `src/model.js`：崖壁、飞梁、南北楼、栈道、构件实验室

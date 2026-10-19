@@ -1,4 +1,4 @@
-// 把介绍视频单独发布成一个页面：docs/video/（和立体书分页，线上地址 …/yingxian-tower/video/）
+// 把介绍视频单独发布成一个页面：docs/video/（和立体书分页，线上地址 …/chinese-architecture/video/）
 // 章节时间按 src/timeline.json 计算，改了场景时长重新运行即可
 import fs from 'node:fs';
 import path from 'node:path';
@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.resolve(ROOT, '../../docs/video');
-const URL = 'https://jackywolf2008.github.io/yingxian-tower';
+const URL = 'https://jackywolf2008.github.io/chinese-architecture';
 const VIDEO = path.join(ROOT, 'out/yingxian-tower-intro.mp4');
 const POSTER = path.join(ROOT, 'out/intro-poster.jpg');
 for (const f of [VIDEO, POSTER]) if (!fs.existsSync(f)) throw new Error(`缺少 ${path.relative(ROOT, f)}，先运行 npm run render 和 npm run poster`);

@@ -2,14 +2,14 @@
 
 两本各自独立的立体书，放在同一个项目里。谁也不是谁的子目录。
 
-书架：https://jackywolf2008.github.io/yingxian-tower/
+书架：https://jackywolf2008.github.io/chinese-architecture/
 
 | 书 | 源码 | 在线 |
 | --- | --- | --- |
-| 应县木塔 | `pagoda/` | https://jackywolf2008.github.io/yingxian-tower/pagoda/ |
-| 悬空寺 | `hanging-temple/` | https://jackywolf2008.github.io/yingxian-tower/hanging-temple/ |
+| 应县木塔 | `pagoda/` | https://jackywolf2008.github.io/chinese-architecture/pagoda/ |
+| 悬空寺 | `hanging-temple/` | https://jackywolf2008.github.io/chinese-architecture/hanging-temple/ |
 
-应县木塔的介绍视频（约 90 秒）：https://jackywolf2008.github.io/yingxian-tower/video/
+应县木塔的介绍视频（约 90 秒）：https://jackywolf2008.github.io/chinese-architecture/video/
 
 ```sh
 sh build.sh
@@ -26,7 +26,7 @@ sh build.sh
 - **代码**：[MIT](LICENSE)。包括两本书的页面、构建脚本，以及 `pagoda/video/` 下的源代码与脚本。
 - **内容**：[CC BY 4.0](LICENSE-CONTENT)。包括两本书里的讲解文字与导览词、立体书的画面、项目封面（`pagoda/video/out/cover.jpg`），以及应县木塔的介绍视频（`pagoda/video/out/`、`docs/video/`）和它的配乐。可以转载、改编，也可以商用，但要署名并注明出处，例如：
 
-  > 应县木塔，Jackywolf2008，https://github.com/Jackywolf2008/yingxian-tower ，CC BY 4.0
+  > 应县木塔，Jackywolf2008，https://github.com/Jackywolf2008/chinese-architecture ，CC BY 4.0
 
 - **不在上述授权范围内**：
   - 历史照片与测绘图（`pagoda/ta-1933.jpg`、`pagoda/liang-*.jpg`，它们在 `docs/pagoda/` 里的副本，以及介绍视频里出现的这些画面）出自梁思成《中国建筑史》和《图像中国建筑史》（中国营造学社测绘），版权归原作者所有。

@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")"
 mkdir -p ../docs/pagoda
-URL=https://jackywolf2008.github.io/yingxian-tower/pagoda
+URL=https://jackywolf2008.github.io/chinese-architecture/pagoda
 {
   printf '<!doctype html>\n<html lang="zh-CN">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
   printf '<meta name="description" content="一本可以一层层点进去的应县木塔立体书：结构按梁思成的测绘图与记述搭建，最后从空地把木塔重新盖起来。">\n'
