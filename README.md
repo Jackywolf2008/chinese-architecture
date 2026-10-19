@@ -21,3 +21,7 @@
   - 历史照片与测绘图（`ta-1933.jpg`、`liang-*.jpg`，它们在 `docs/` 里的副本，以及介绍视频里出现的这些画面）出自梁思成《中国建筑史》和《图像中国建筑史》（中国营造学社测绘），版权归原作者所有。
   - `docs/three.module.min.js` 是 [three.js](https://github.com/mrdoob/three.js)，MIT 许可，版权归 three.js 作者。
   - 页面和视频用到的马善政、思源宋体、思源黑体来自 Google Fonts，按 SIL Open Font License 1.1 授权；仓库里不含字体文件。
+
+## 悬空寺
+
+下一本立体书的源码在 `xuankong/`（阅读器、模型和正文分开），页面在 `docs/xuankong/`。它和应县木塔是两本书，先放在这里才能打开；以后会整夹搬到单独的仓库。说明和尺寸出处写在悬空寺页面底部。
