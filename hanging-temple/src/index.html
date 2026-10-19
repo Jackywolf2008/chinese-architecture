@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="一本可以一层层点进去的悬空寺立体书：一院两楼挂在恒山金龙峡的凹崖上，飞梁插入岩壁。模型是结构示意。">
+<title>悬空寺</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="./shell.css">
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>悬空寺</h1>
+  <p>一本可以一直往下翻的立体书。点“导览”，它会配着字幕把这座挂在崖上的寺讲一遍；也可以自己点红点或构件。翻到最后，从一面石壁开始把它盖起来。</p>
+</header>
+<section class="win" id="win" aria-label="悬空寺立体书">
+  <nav class="chrome" aria-label="浏览">
+    <button class="ic" id="back" type="button" aria-label="后退" disabled>‹</button>
+    <button class="ic" id="fwd" type="button" aria-label="前进" disabled>›</button>
+    <button class="ic" id="home" type="button" aria-label="回到封面">⌂</button>
+    <div class="addr" id="addr" aria-label="当前位置"></div>
+    <button id="tourBtn" type="button" aria-pressed="false">▶ 导览</button>
+    <button id="tocBtn" type="button" aria-expanded="false" aria-controls="toc">目录</button>
+    <button id="buildBtn" type="button" aria-pressed="false">重建悬空寺</button>
+  </nav>
+  <div class="band" aria-hidden="true"></div>
+  <div class="toc" id="toc" hidden></div>
+  <div class="page">
+    <div class="stage" id="stage">
+      <canvas id="gl" aria-label="悬空寺三维模型，可拖动旋转，点构件进入对应页面"></canvas>
+      <div class="labels" id="labels"></div>
+      <div class="plate" id="plate"><div class="k" id="pk"></div><div class="t" id="pt"></div><div class="s" id="ps"></div></div>
+      <div class="hint" id="hint">拖动旋转 · 滚轮缩放 · 红点和构件都能点</div>
+      <div class="tip" id="tip" hidden></div>
+      <div class="tsub" id="tsub" hidden>
+        <div class="th"><span id="tpos"></span><span class="tb"><button id="tPause" type="button">暂停</button><button id="tNext" type="button">下一站</button><button id="tEnd" type="button">结束</button></span></div>
+        <p id="ttxt" aria-live="polite"></p>
+      </div>
+      <div class="cap" id="cap" hidden></div>
+      <div class="tools" id="tools" role="toolbar" aria-label="视图"></div>
+      <div class="loading" id="loading">正在把寺嵌进崖壁…</div>
+      <div class="err" id="err" hidden>三维场景没有加载成功。请换一个支持 WebGL 2 的浏览器后再打开。</div>
+    </div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+</section>
+<section class="notes">
+  <h2>说明与出处</h2>
+  <p>这是结构示意，不是测绘模型。平面上的大约尺寸取自恒山风景名胜区管理中心《古建档案看山西 · 恒山悬空寺》：建筑群总长约 32 米，南楼约 8×4 米（纯阳宫、三官殿、雷音殿），北楼约 7×4 米（五佛殿、三圣殿、三教殿），长线桥约 10 米、宽不足 1 米，下院院落约 10×3 米。大雄宝殿面宽 14.8 米；模型把下院收成一条较短的殿，避免和总长再叠一次，这一处是省略。</p>
+  <p>飞梁有两说，书里都保留了。古建档案写，插入石灰岩的悬臂挑梁深约 1 至 1.2 米，挑梁才是把重量传进岩壁的构件，细柱有的几乎不承重。景区另一篇介绍写，27 根直径约 50 厘米的铁杉木横梁约有三分之二楔入岩体、外露约 1 米，梁尾木楔越压越紧；立柱约 30 根，人多时可以“立木顶千斤”。2026 年 8 月《人民日报》的采访则说细长立柱“悬而不承”。模型取一个能看清的中间画法：楼面进深约 4 米，梁从岩内伸出托住楼面，埋入的一段画得比外露段更长；红柱分成三组，作为辅助。层高、斗拱跳数和塑像都是示意。</p>
+  <p>谷底到寺院的高度，同一来源里有 58 米、80 多米、初建时 90 多米几种说法，和河道淤积、后来清淤有关。模型把这段崖高缩短了，否则楼阁会小得看不见。崖壁下方的人用来对照立柱有多长，不是谷底的真实距离。</p>
+  <p>始建传统上记为北魏太和十五年（491）。档案同时写到：有人认为迁到这里的崇虚寺并不是悬空寺。金代以后历代重修，现存木构多为明清遗构。1982 年公布为全国重点文物保护单位。文中沿用了徐霞客“天下巨观”、崖上“公输天巧”等通行记述。没有使用历史照片。书架上还有一本各自独立的<a href="../pagoda/">应县木塔</a>。从<a href="../">书架</a>可以回到两本书的入口。</p>
+</section>
+</div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

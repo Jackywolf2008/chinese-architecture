@@ -1,4 +1,4 @@
-// 把仓库根目录的历史照片与测绘图复制到 public/img，供视频引用
+// 把应县木塔目录里的历史照片与测绘图复制到 public/img，供视频引用
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

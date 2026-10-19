@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>立体书</title>
+<meta name="description" content="两本各自独立的立体书：应县木塔，和恒山悬空寺。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@500;700&family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+:root{--paper:#e9e3d3;--sheet:#f5f1e6;--ink:#29231c;--mute:#675e51;--line:#d4c9b0;--line2:#b7aa8d;
+ --qing:#2b5876;--lu:#37705a;--zhu:#b13d28;--huang:#ad802b;--on:#f7f3e9;
+ --disp:"Ma Shan Zheng","STKaiti","KaiTi","Kaiti SC",serif;--serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;--sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--paper:#141617;--sheet:#1c1f20;--ink:#ece5d3;--mute:#a49c8b;--line:#33393a;--line2:#4b5253;--qing:#8bb9d6;--lu:#86c4a8;--zhu:#e67d63;--huang:#ddb05a;--on:#141617}}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased}
+.band{height:6px;background:linear-gradient(90deg,var(--qing) 0 18%,var(--lu) 18% 33%,var(--huang) 33% 43%,var(--zhu) 43% 57%,var(--huang) 57% 67%,var(--lu) 67% 82%,var(--qing) 82%)}
+.wrap{max-width:880px;margin:0 auto;padding:28px 16px 64px}
+.k{font-family:var(--sans);font-size:12.5px;letter-spacing:.22em;color:var(--zhu);font-weight:700}
+h1{font-family:var(--disp);font-weight:400;font-size:clamp(40px,7vw,64px);line-height:1;margin:8px 0 12px;letter-spacing:.06em}
+.lead{margin:0;max-width:40em;font-size:16.5px;line-height:1.8}
+.books{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.book{display:flex;flex-direction:column;gap:8px;min-height:220px;padding:22px 22px 18px;background:var(--sheet);border:1px solid var(--line2);border-radius:10px;color:inherit;text-decoration:none;box-shadow:0 14px 34px -24px rgba(40,28,10,.45)}
+.book:hover{border-color:var(--ink)}
+.book b{font-family:var(--disp);font-weight:400;font-size:40px;line-height:1.05;letter-spacing:.04em}
+.book span{color:var(--mute);font-size:15px;line-height:1.7}
+.book i{margin-top:auto;font-style:normal;font-family:var(--sans);font-size:14px;color:var(--qing)}
+.more{margin-top:22px;font-family:var(--sans);font-size:14px}
+.more a{color:var(--qing)}
+@media (max-width:640px){.books{grid-template-columns:1fr}}
+a:focus-visible{outline:2px solid var(--zhu);outline-offset:3px}
+</style>
+<script>
+if (location.hash.length > 1) location.replace('pagoda/' + location.hash);
+</script>
+</head>
+<body>
+<div class="band" aria-hidden="true"></div>
+<main class="wrap">
+  <div class="k">两本各自独立的书</div>
+  <h1>立体书</h1>
+  <p class="lead">应县木塔和悬空寺放在同一个书架上，彼此不从属。点进去的是单独的一本书：可以下钻、听导览，最后再把它盖起来。</p>
+  <div class="books">
+    <a class="book" href="pagoda/">
+      <b>应县木塔</b>
+      <span>佛宫寺释迦塔。结构按梁思成的测绘图与记述搭建，从空地重新盖起。</span>
+      <i>打开这本 ›</i>
+    </a>
+    <a class="book" href="hanging-temple/">
+      <b>悬空寺</b>
+      <span>恒山金龙峡的一院两楼。按公开古建档案做成结构示意，从一面石壁嵌上去。</span>
+      <i>打开这本 ›</i>
+    </a>
+  </div>
+  <p class="more">应县木塔另有一段约 90 秒的<a href="video/">介绍视频</a>。</p>
+</main>
+</body>
+</html>

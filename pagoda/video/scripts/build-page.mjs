@@ -1,11 +1,11 @@
-// 把介绍视频单独发布成一个页面：../docs/video/（与立体书应用分开，线上地址 …/yingxian-tower/video/）
+// 把介绍视频单独发布成一个页面：docs/video/（和立体书分页，线上地址 …/yingxian-tower/video/）
 // 章节时间按 src/timeline.json 计算，改了场景时长重新运行即可
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const OUT = path.resolve(ROOT, '../docs/video');
+const OUT = path.resolve(ROOT, '../../docs/video');
 const URL = 'https://jackywolf2008.github.io/yingxian-tower';
 const VIDEO = path.join(ROOT, 'out/yingxian-tower-intro.mp4');
 const POSTER = path.join(ROOT, 'out/intro-poster.jpg');

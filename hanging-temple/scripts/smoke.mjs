@@ -42,7 +42,7 @@ ws.addEventListener('message', ev => {
 });
 
 async function open(hash) {
-  await send('Page.navigate', { url: `http://127.0.0.1:${port}/docs/xuankong/index.html${hash}` });
+  await send('Page.navigate', { url: `http://127.0.0.1:${port}/docs/hanging-temple/index.html${hash}` });
   await sleep(1200);
   for (let i = 0; i < 20; i++) {
     const r = await send('Runtime.evaluate', { expression: 'window.__app ? "ok" : document.getElementById("err")?.textContent || ""', returnByValue: true });

@@ -2,7 +2,7 @@ import * as esbuild from 'esbuild';
 import { cpSync, mkdirSync, rmSync } from 'fs';
 
 const dev = process.argv.includes('--dev');
-const out = new URL('../docs/xuankong/', import.meta.url);
+const out = new URL('../docs/hanging-temple/', import.meta.url);
 rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 
@@ -22,4 +22,4 @@ await esbuild.build({
 
 cpSync(new URL('src/index.html', import.meta.url), new URL('index.html', out));
 cpSync(new URL('src/shell.css', import.meta.url), new URL('shell.css', out));
-console.log(dev ? 'docs/xuankong (dev)' : 'docs/xuankong');
+console.log(dev ? 'docs/hanging-temple (dev)' : 'docs/hanging-temple');

@@ -1,6 +1,6 @@
 // 逐帧抓取《应县木塔》立体书的真实三维画面，供 Remotion 合成
 //
-// 做法：本地起一个静态服务器发布 ../docs（与线上 GitHub Pages 相同的页面），用虚拟时钟接管
+// 做法：本地起一个静态服务器发布 docs/（与线上 GitHub Pages 相同），打开 pagoda/ 这本立体书，用虚拟时钟接管
 // performance.now / requestAnimationFrame / setTimeout，每推进 1/30 秒就从 WebGL 画布读出一帧（透明背景 WebP），
 // 同时记下这一帧上所有标注的位置和文字，由 Remotion 重新绘制，保证文字清晰。
 //
@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { SHOTS, FPS } from './shots.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const SITE = path.resolve(HERE, '../../docs');
+const SITE = path.resolve(HERE, '../../../docs');
 const OUT = path.resolve(HERE, '../public/shots');
 const UI_OUT = path.resolve(HERE, '../public/ui');
 const W = 1920, H = 1080, ASPECT = W / H, FOV = 34;
@@ -97,7 +97,7 @@ function camAt(keys, t) {
 }
 
 // ---------- 抓一个镜头 ----------
-async function newPage(browser, { viewport, dsf = 1, fonts = false, url = 'index.html', vclock = true }, port) {
+async function newPage(browser, { viewport, dsf = 1, fonts = false, url = 'pagoda/index.html', vclock = true }, port) {
   const ctx = await browser.newContext({ viewport, deviceScaleFactor: dsf, ignoreHTTPSErrors: true });
   if (!fonts) await ctx.route(/fonts\.(googleapis|gstatic)\.com/, r => r.abort());
   const page = await ctx.newPage();
@@ -195,7 +195,7 @@ const UI_STILLS = [
 ];
 async function captureUI(browser, port) {
   fs.mkdirSync(UI_OUT, { recursive: true });
-  const { ctx, page } = await newPage(browser, { viewport: { width: 1440, height: 900 }, dsf: 1.5, fonts: true, url: 'index.html?fast', vclock: false }, port);
+  const { ctx, page } = await newPage(browser, { viewport: { width: 1440, height: 900 }, dsf: 1.5, fonts: true, url: 'pagoda/index.html?fast', vclock: false }, port);
   // 等网页字体（马善政、思源宋体）加载好；网络不通时退回系统字体
   // document.fonts.check() 在字体样式表生效前也会返回 true，所以先等样式表生效，再主动加载并确认字体真的到了
   const fontsOk = await page.waitForFunction(async () => {
@@ -234,7 +234,7 @@ const COVER_RENDERS = [
 async function captureCover(browser, port) {
   fs.mkdirSync(COVER_OUT, { recursive: true });
   // 3840×2160 的页面按 1.5 倍像素比渲染，得到 5760×3240 的画布，合成时再缩小，边缘更干净
-  const { ctx, page } = await newPage(browser, { viewport: { width: 3840, height: 2160 }, dsf: 1.5, url: 'index.html?fast' }, port);
+  const { ctx, page } = await newPage(browser, { viewport: { width: 3840, height: 2160 }, dsf: 1.5, url: 'pagoda/index.html?fast' }, port);
   await page.addStyleTag({ content: CLEAN_CSS });
   for (const r of COVER_RENDERS) {
     const cam = toView(r.cam);
