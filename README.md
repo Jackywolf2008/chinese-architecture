@@ -17,7 +17,7 @@ sh build.sh
 
 这会分别构建两本书，再把书架页写到 `docs/`。也可以只构建其中一本：`sh pagoda/build.sh`，或在 `hanging-temple/` 里执行 `npm run build`。GitHub Pages 从 `docs/` 发布。
 
-冒烟测试走一遍发布页（翻页、导览、重建、点选）。需要 Node.js 20 或更高，以及本机的 Chrome / Chromium；浏览器不在默认位置时，用环境变量 `CHROME_PATH` 指给它。
+冒烟测试走一遍发布页（翻页、导览、重建、点选），两本一起大约要十几分钟。需要 Node.js 20 或更高，以及本机的 Chrome / Chromium；浏览器不在默认位置时，用环境变量 `CHROME_PATH` 指给它。
 
 ```sh
 npm test
