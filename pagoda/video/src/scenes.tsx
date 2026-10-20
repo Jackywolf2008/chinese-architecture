@@ -84,7 +84,7 @@ export const Section: React.FC<{ frames: number }> = ({ frames }) => {
   const k = rise(f, 70, 22);
   return (
     <Shot id="section" frames={frames}>
-      <Mounted src="img/liang-sect.jpg" height={560} caption="中国营造学社测绘的剖面图" sub="梁思成《图像中国建筑史》手绘图"
+      <Mounted src="img/liang-sect.jpg" height={560} caption="营造学社测绘的断面图" sub="《中国建筑史》图 65-1，一九三五年绘成"
         style={{ right: 150, top: 96, opacity: k, transform: `translateY(${(1 - k) * 30}px)` }} zoom={interpolate(f, [70, 180], [1, 1.04], clamp)} />
     </Shot>
   );
@@ -146,18 +146,18 @@ export const History: React.FC = () => {
   return (
     <Paper tone={C.paper}>
       <AbsoluteFill style={{ opacity: a }}>
-        <Mounted src="img/ta-1933.jpg" height={690} caption="1933 年中国营造学社考察时拍摄的应县木塔" sub="梁思成《中国建筑史》图 64"
+        <Mounted src="img/ta-1933.jpg" height={690} caption="应县木塔外景" sub="《中国建筑史》图 64「佛宫寺塔外景」，未注年份"
           style={{ left: 230, top: 110, opacity: rise(f, 0, 16) }} zoom={interpolate(f, [0, 112], [1, 1.07], clamp)} />
-        <Story at={6} kicker="年表 · 1933" title="梁思成的一块钱"
-          zh="1933 年，梁思成给应县的照相馆寄去一块钱，求一张木塔照片；随后与中国营造学社的同人赶来实测。"
-          en="In 1933, Liang Sicheng mailed one yuan to a photo studio in Yingxian for a picture of the pagoda — then came with his colleagues to survey it by hand." />
+        <Story at={6} kicker="年表 · 1934" title="应县实测"
+          zh="一九三四年，梁思成、莫宗江到应县把木塔量了一遍。立面和断面到一九三五年才画完。"
+          en="In 1934 Liang Sicheng and Mo Zongjiang surveyed the pagoda in Yingxian. The elevation and section were drawn in 1935." />
       </AbsoluteFill>
       <AbsoluteFill style={{ opacity: b }}>
-        <Mounted src="img/liang-elev.jpg" height={720} caption="中国营造学社测绘的立面图" sub="梁思成《图像中国建筑史》手绘图"
+        <Mounted src="img/liang-elev.jpg" height={720} caption="营造学社测绘的立面渲染图" sub="《中国建筑史》图 65，一九三五年绘成"
           style={{ left: 240, top: 96 }} zoom={interpolate(f, [96, 210], [1.06, 1], clamp)} />
         <Story at={104} kicker="测绘 · SURVEY" title="按图搭建"
-          zh="三维模型的结构，按他们的测绘图和记述搭建：八角平面，明五暗四，塔高 67.31 米。"
-          en="The 3D model follows their drawings and notes: an octagonal plan, five storeys outside and nine inside, 67.31 metres tall." />
+          zh="模型按测绘图和记述来搭：八角平面，明五暗四。梁思成记全高约六十七米，模型用 67.31 米。"
+          en="The model follows the drawings and his account: octagonal, five storeys outside and nine inside. He wrote “about 67 metres”; the model uses 67.31." />
       </AbsoluteFill>
     </Paper>
   );
@@ -228,7 +228,7 @@ export const End: React.FC = () => {
         </div>
       </div>
       <div style={{ position: 'absolute', left: 96, bottom: 70, width: 1000, fontFamily: F.sans, fontSize: 18, lineHeight: 1.7, color: C.mute, opacity: rise(f, 44, 20) }}>
-        历史照片与测绘图出自梁思成《中国建筑史》《图像中国建筑史》（中国营造学社测绘）· 三维：Three.js · 视频：Remotion
+        历史照片是《中国建筑史》图 64、图 65-2、图 65-3；立面与断面是同书图 65、图 65-1（一九三五年绘）· 三维：Three.js · 视频：Remotion
       </div>
     </Paper>
   );
