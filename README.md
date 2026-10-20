@@ -29,6 +29,6 @@ sh build.sh
   > 应县木塔，Jackywolf2008，https://github.com/Jackywolf2008/chinese-architecture ，CC BY 4.0
 
 - **不在上述授权范围内**：
-  - 历史照片与测绘图（`pagoda/ta-1933.jpg`、`pagoda/liang-*.jpg`，它们在 `docs/pagoda/` 里的副本，以及介绍视频里出现的这些画面）出自梁思成《中国建筑史》和《图像中国建筑史》（中国营造学社测绘），版权归原作者所有。
+  - 历史照片与测绘图（`pagoda/ta-1933.jpg`、`pagoda/liang-*.jpg`，它们在 `docs/pagoda/` 里的副本，以及介绍视频里出现的这些画面）版权归原作者所有。照片是梁思成《中国建筑史》图 64、图 65-2、图 65-3；立面渲染图和断面图是同书图 65、图 65-1（一九三五年测绘）。读库版《图像中国建筑史》把这两张测绘图补在王南的序里，不是该书原来的图版。
   - `docs/pagoda/three.module.min.js` 和悬空寺页面里打包的 three.js 是 [three.js](https://github.com/mrdoob/three.js)，MIT 许可，版权归 three.js 作者。
   - 页面和视频用到的马善政、思源宋体、思源黑体来自 Google Fonts，按 SIL Open Font License 1.1 授权；仓库里不含字体文件。

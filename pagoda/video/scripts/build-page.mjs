@@ -12,7 +12,7 @@ const POSTER = path.join(ROOT, 'out/intro-poster.jpg');
 for (const f of [VIDEO, POSTER]) if (!fs.existsSync(f)) throw new Error(`缺少 ${path.relative(ROOT, f)}，先运行 npm run render 和 npm run poster`);
 
 const NAMES = {
-  hero: '应县木塔', history: '梁思成的一块钱', eaves: '六重屋檐', spire: '塔刹', levels: '明五暗四', dark: '暗层斜撑',
+  hero: '应县木塔', history: '应县实测', eaves: '六重屋檐', spire: '塔刹', levels: '明五暗四', dark: '暗层斜撑',
   section: '剖开看', bracket: '斗拱', fork: '叉柱造', joint: '榫卯', quake: '为什么震不倒', today: '今天的木塔',
   build: '重建木塔', ui: '一本能点的书',
 };
