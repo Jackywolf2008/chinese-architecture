@@ -1,0 +1,7 @@
+{
+  "name": "popup-reader",
+  "private": true,
+  "description": "立体书共用阅读器：外壳、翻页、导览、重建、墨线和点选",
+  "license": "MIT",
+  "type": "module"
+}
