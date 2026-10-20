@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="一本可以一层层点进去的应县木塔立体书：结构按梁思成的测绘图与记述搭建，最后从空地把木塔重新盖起来。">
+<title>应县木塔</title>
+<meta property="og:title" content="应县木塔">
+<meta property="og:image" content="https://jackywolf2008.github.io/chinese-architecture/pagoda/ta-1933.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="./shell.css">
+</head>
+<body class="book-pagoda">
+<div class="wrap">
+<header class="top"><h1>应县木塔</h1><p>一本可以一直往下翻的立体书。点“导览”，它会配着字幕带你一路看下来；也可以自己点图上的红点或塔上的构件，钻进去看它是什么、为什么这样做。翻到最后，从一块空地把木塔重新盖起来。</p></header>
+<section class="win" id="win" aria-label="应县木塔立体书">
+ <nav class="chrome" aria-label="浏览">
+  <button class="ic" id="back" type="button" aria-label="后退" disabled>‹</button><button class="ic" id="fwd" type="button" aria-label="前进" disabled>›</button><button class="ic" id="navHome" type="button" aria-label="回到封面">⌂</button>
+  <div class="addr" id="addr" aria-label="当前位置"></div>
+  <button id="tourBtn" type="button" aria-pressed="false">▶ 导览</button><button id="tocBtn" type="button" aria-expanded="false" aria-controls="toc">目录</button><button id="buildBtn" type="button" aria-pressed="false">重建木塔</button>
+ </nav>
+ <div class="band" aria-hidden="true"></div>
+ <div class="toc" id="toc" hidden></div>
+ <div class="page">
+  <div class="stage" id="stage">
+   <canvas id="gl" aria-label="应县木塔三维模型，可拖动旋转，点构件进入对应页面"></canvas>
+   <div class="labels" id="labels"></div>
+   <div class="plate" id="plate"><div class="k" id="pk"></div><div class="t" id="pt"></div><div class="s" id="ps"></div></div>
+   <div class="hint" id="hint">拖动旋转 · 滚轮缩放 · 红点和构件都能点</div>
+   <div class="tip" id="tip" hidden></div>
+   <div class="tsub" id="tsub" hidden><div class="th"><span id="tpos"></span><span class="tb"><button id="tPause" type="button">暂停</button><button id="tNext" type="button">下一站</button><button id="tEnd" type="button">结束</button></span></div><p id="ttxt" aria-live="polite"></p></div>
+   <div class="cap" id="cap" hidden></div>
+   <div class="tools" id="tools" role="toolbar" aria-label="视图"></div>
+   <div class="loading" id="loading">正在搭建木塔…</div>
+   <div class="err" id="err" hidden>三维引擎没有加载成功。请检查网络后刷新页面；本页需要浏览器支持 WebGL 2。</div>
+  </div>
+  <aside class="panel" id="panel" aria-live="polite"></aside>
+ </div>
+</section>
+<section class="notes">
+<h2>说明与出处</h2>
+<p>三维模型的结构依据梁思成《中国建筑史》里“佛宫寺释迦木塔”一节：八角平面，高五层，第一层外加一圈副阶，再往上四层都是下为平坐、上出檐。各层外檐、平坐、内槽的铺作，按这一节逐层的记载来配。楼层比例按同书图 65 立面渲染图、图 65-1 断面图来推。模型里的塔高取 67.31 米，塔刹约 12 米；梁思成只写了“全高约六十七米”。内槽 8 柱、外槽 24 柱、副阶 24 柱是对着图数的，书里没有这几个数。斜撑和楼梯的根数、位置做了简化，补间铺作只做了“驼峰短柱承大斗”一种，塑像是示意；“重建木塔”按木构的常规工序推演，不是史料。一、二层外檐，他只说“如独乐寺观音阁上层檐所见”，观音阁上层写的是“第一及第三跳偷心”；第二跳画成重栱，是把这两句合起来推的。平坐柱落在哪里，书里有两说，模型按“叉于下层斗栱之上”来画。“孤例”只用他在宋、辽、金佛塔里的原句。辽代和明清斗拱的比例也依据《中国建筑史》；“斗拱变小了”一页里的明清斗拱只按比例缩小，作示意。</p>
+<p>外景、斗拱、塔刹三张照片是《中国建筑史》图 64、图 65-2、图 65-3。图 64 的图题是“佛宫寺塔外景”，没有年份。立面和断面是同书图 65、图 65-1。王南为读库版《图像中国建筑史》写的序里说，梁思成、莫宗江一九三四年实测，这两张图画于一九三五年；读库把早期测绘图补在序里，不是《图像中国建筑史》原来的图版。</p>
+<p>金明昌六年增修、一层坐像约十一米、八条铁链，都不是《中国建筑史》里的话。“元代大地震连震七日”“近代身中二百余发炮弹”“明成祖、明武宗题匾”等来自方志与通行记述，具体细节各说不一；民国改造削弱结构刚度是部分研究者的观点；木材中榆木的使用依据公开资料。现状与“1∶1研究性复建”建议参见国家文物局、山西省文物局发布及 2026 年 3 月科技日报、澎湃新闻等报道。</p>
+<p>书架上还有一本各自独立的<a href="../hanging-temple/">悬空寺</a>。从<a href="../">书架</a>可以回到两本书的入口。</p>
+</section>
+</div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
