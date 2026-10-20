@@ -17,6 +17,14 @@ sh build.sh
 
 这会分别构建两本书，再把书架页写到 `docs/`。也可以只构建其中一本：`sh pagoda/build.sh`，或在 `hanging-temple/` 里执行 `npm run build`。GitHub Pages 从 `docs/` 发布。
 
+冒烟测试走一遍发布页（翻页、导览、重建、点选），两本一起大约要十几分钟。需要 Node.js 20 或更高，以及本机的 Chrome / Chromium；浏览器不在默认位置时，用环境变量 `CHROME_PATH` 指给它。
+
+```sh
+npm test
+```
+
+只测一本：`npm run test:pagoda`，`npm run test:temple`。测的是 `docs/` 里的页面，改了源码要先构建。截图写到 `smoke-out/`，不进仓库，给人眼对照重构前后的画面。WebGL 在不同机器上对不齐像素，所以不做自动像素差。
+
 以前的地址 `/xuankong/` 会跳到悬空寺。目录名用英文：`pagoda`、`hanging-temple`。
 
 仓库根目录的两份梁思成著作 PDF 是应县木塔的参考书，不归悬空寺。
