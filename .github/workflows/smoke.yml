@@ -15,7 +15,9 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: hanging-temple/package-lock.json
+          cache-dependency-path: |
+            hanging-temple/package-lock.json
+            pagoda/package-lock.json
       - name: 安装 Chrome
         run: |
           curl -fsSL -o /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -24,6 +26,7 @@ jobs:
       - name: 构建
         run: |
           npm ci --prefix hanging-temple
+          npm ci --prefix pagoda
           sh build.sh
       - name: 冒烟测试
         run: npm test

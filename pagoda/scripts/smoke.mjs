@@ -10,12 +10,9 @@ ensureNode();
 const quick = process.argv.includes('--quick');
 // 导览按字数睡眠，完整走完要十几分钟。?fast 已经把镜头收成瞬间到位，这里再把页面里的 setTimeout 缩短。
 // 只作用于这次测试打开的页面，不改书的源码。路线、翻页、动作和重建仍走原来的函数。
-// 无头 Chrome 里 requestAnimationFrame 的时间戳会比 performance.now() 落后一两百毫秒。
-// ?fast 把镜头过渡收成 10 毫秒，这个落差会让缓动算出 NaN，控制台抛一次 toArray。测试里把回调时间改成 performance.now()，避开这个环境问题。
+// ?fast 时阅读器把镜头直接到位，不再用短过渡把相机矩阵算成 NaN，也不用补帧。
 const SCALE = Number(process.env.SMOKE_TIME_SCALE || 16);
 const INJECT = `(() => {
-  const raf = window.requestAnimationFrame.bind(window);
-  window.requestAnimationFrame = fn => raf(() => fn(performance.now()));
   if (!/[?&]fast(?:&|$)/.test(location.search)) return;
   const timeout = window.setTimeout.bind(window);
   window.setTimeout = (fn, ms, ...args) => {
@@ -58,11 +55,11 @@ const PAGES = [
 ];
 
 function assertBuilt() {
-  const src = readFileSync(path.join(repoRoot, 'pagoda/index.html'), 'utf8');
+  const src = readFileSync(path.join(repoRoot, 'pagoda/src/index.html'), 'utf8');
   const built = readFileSync(path.join(repoRoot, 'docs/pagoda/index.html'), 'utf8');
-  const i = src.indexOf('<div class="wrap">');
-  const body = src.slice(i).replace(/https:\/\/cdn\.jsdelivr\.net\/npm\/three@[\d.]+\/build\/three\.module\.js/g, './three.module.min.js');
-  if (i < 0 || !built.includes(body)) throw new Error('docs/pagoda/index.html 和 pagoda/index.html 不一致。先在仓库根目录执行 sh build.sh');
+  const app = readFileSync(path.join(repoRoot, 'docs/pagoda/app.js'), 'utf8');
+  if (src !== built) throw new Error('docs/pagoda/index.html 和 pagoda/src/index.html 不一致。先在仓库根目录执行 sh build.sh');
+  if (!app.includes('唯应县佛宫寺释迦塔一孤例')) throw new Error('docs/pagoda/app.js 里没有应县木塔的正文');
 }
 
 function must(cond, msg) {
@@ -87,7 +84,8 @@ async function main(s) {
     let stable = 0;
     for (let i = 0; i < 40; i++) {
       const cur = await s.ev(`(() => { const v = window.__app.view; return [v.th, v.ph, v.r, v.t.x, v.t.y, v.t.z].map(n => Number(n).toFixed(2)).join(','); })()`);
-      if (cur === prev) {
+      const moving = await s.ev(`window.__app.moving ? 1 : 0`);
+      if (cur === prev && !moving) {
         if (++stable >= 2) return;
       } else stable = 0;
       prev = cur;
@@ -139,7 +137,7 @@ async function main(s) {
   await click(`document.getElementById('fwd')`, '前进');
   await settle();
   must(await pageNow() === 'levels', '前进没有回到明五暗四');
-  await click(`document.getElementById('home')`, '封面');
+  await click(`document.getElementById('navHome')`, '封面');
   await settle();
   must(await pageNow() === 'home', '封面按钮没有回到应县木塔');
   await click(`document.getElementById('back')`, '再后退');

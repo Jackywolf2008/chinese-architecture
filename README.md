@@ -1,6 +1,6 @@
 # 立体书
 
-两本各自独立的立体书，放在同一个项目里。谁也不是谁的子目录。
+两本各自独立的立体书，放在同一个项目里，共用 [`reader/`](reader/README.md) 里的阅读器。谁也不是谁的子目录。下一本只需要自己的模型和正文。
 
 书架：https://jackywolf2008.github.io/chinese-architecture/
 
@@ -12,10 +12,12 @@
 应县木塔的介绍视频（约 90 秒）：https://jackywolf2008.github.io/chinese-architecture/video/
 
 ```sh
+npm ci --prefix hanging-temple
+npm ci --prefix pagoda
 sh build.sh
 ```
 
-这会分别构建两本书，再把书架页写到 `docs/`。也可以只构建其中一本：`sh pagoda/build.sh`，或在 `hanging-temple/` 里执行 `npm run build`。GitHub Pages 从 `docs/` 发布。
+这会分别构建两本书，再把书架页写到 `docs/`。也可以只构建其中一本：`sh pagoda/build.sh`，或在 `hanging-temple/` 里执行 `npm run build`。两本书都用 esbuild 把 three.js 和阅读器打进各自的 `app.js`。GitHub Pages 从 `docs/` 发布。
 
 冒烟测试走一遍发布页（翻页、导览、重建、点选），两本一起大约要十几分钟。需要 Node.js 20 或更高，以及本机的 Chrome / Chromium；浏览器不在默认位置时，用环境变量 `CHROME_PATH` 指给它。
 
@@ -38,5 +40,5 @@ npm test
 
 - **不在上述授权范围内**：
   - 历史照片与测绘图（`pagoda/ta-1933.jpg`、`pagoda/liang-*.jpg`，它们在 `docs/pagoda/` 里的副本，以及介绍视频里出现的这些画面）版权归原作者所有。照片是梁思成《中国建筑史》图 64、图 65-2、图 65-3；立面渲染图和断面图是同书图 65、图 65-1（一九三五年测绘）。读库版《图像中国建筑史》把这两张测绘图补在王南的序里，不是该书原来的图版。
-  - `docs/pagoda/three.module.min.js` 和悬空寺页面里打包的 three.js 是 [three.js](https://github.com/mrdoob/three.js)，MIT 许可，版权归 three.js 作者。
+  - `docs/pagoda/app.js` 和 `docs/hanging-temple/app.js` 里打包的 three.js 是 [three.js](https://github.com/mrdoob/three.js)，MIT 许可，版权归 three.js 作者。
   - 页面和视频用到的马善政、思源宋体、思源黑体来自 Google Fonts，按 SIL Open Font License 1.1 授权；仓库里不含字体文件。

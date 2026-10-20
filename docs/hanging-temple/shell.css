@@ -1,8 +1,11 @@
+/* 两本立体书共用的纸面。数字和缩进有差别的地方用 body.book-pagoda / body.book-temple 分开，避免改到各自的版式。 */
 :root{--paper:#e9e3d3;--sheet:#f5f1e6;--stage:#eee8d9;--ink:#29231c;--mute:#675e51;--line:#d4c9b0;--line2:#b7aa8d;
  --qing:#2b5876;--lu:#37705a;--zhu:#b13d28;--huang:#ad802b;--on:#f7f3e9;
  --disp:"Ma Shan Zheng","STKaiti","KaiTi","Kaiti SC",serif;--serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;--sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--paper:#141617;--sheet:#1c1f20;--stage:#212526;--ink:#ece5d3;--mute:#a49c8b;--line:#33393a;--line2:#4b5253;--qing:#8bb9d6;--lu:#86c4a8;--zhu:#e67d63;--huang:#ddb05a;--on:#141617}}
 :root[data-theme="dark"]{color-scheme:dark;--paper:#141617;--sheet:#1c1f20;--stage:#212526;--ink:#ece5d3;--mute:#a49c8b;--line:#33393a;--line2:#4b5253;--qing:#8bb9d6;--lu:#86c4a8;--zhu:#e67d63;--huang:#ddb05a;--on:#141617}
+[hidden]{display:none !important}
+img{max-width:100%}
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased}
 .wrap{max-width:1320px;margin:0 auto;padding-inline:16px;padding-block:16px 40px}
@@ -73,7 +76,6 @@ h1{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5vw,48px);line-h
 .tools .sep{width:1px;background:var(--line2);margin:5px 2px}
 .loading,.err{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--stage);color:var(--ink);z-index:5;font-family:var(--disp);font-size:28px;transition:opacity .5s;text-align:center;padding:24px}
 .err{font-family:var(--serif);font-size:16px;line-height:1.7}
-.loading[hidden],.err[hidden]{display:none !important}
 .loading.gone{opacity:0;pointer-events:none}
 .lead{margin:0;font-size:16px;line-height:1.85;text-wrap:pretty}
 .facts{list-style:none;margin:0;padding:0;display:grid}
@@ -82,7 +84,10 @@ h1{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5vw,48px);line-h
 .facts b{font-weight:900;font-size:18px;color:var(--qing);line-height:1.2;font-variant-numeric:tabular-nums}
 .facts span{display:block;font-size:14.5px;line-height:1.55}
 .facts small{display:block;color:var(--mute);font-size:13px;line-height:1.6;margin-top:2px}
-.facts li.wide{grid-template-columns:1fr}
+.facts li.wide,.facts li.pic{grid-template-columns:1fr}
+.facts li.pic img{width:100%;max-height:230px;object-fit:cover;object-position:50% 30%;border:1px solid var(--ink);display:block}
+.facts li.pic span{font-size:13.5px;color:var(--ink)}
+.facts li.fit img{object-fit:contain;max-height:440px;background:var(--paper)}
 .tl{list-style:none;margin:0 0 0 4.6em;padding:0;border-left:2px solid var(--huang)}
 .tl li{position:relative;padding:0 0 14px 16px}
 .tl li:last-child{padding-bottom:0}
@@ -129,6 +134,10 @@ h1{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5vw,48px);line-h
 .notes p{margin:0 0 8px}
 .notes a{color:var(--qing)}
 button:focus-visible,.lb.go:focus-visible span{outline:2px solid var(--zhu);outline-offset:2px}
+body.book-pagoda .facts li{grid-template-columns:5.2em 1fr}
+body.book-pagoda .facts b{font-size:20px;white-space:nowrap}
+body.book-pagoda .tl{margin-left:4.4em}
+body.book-pagoda .tl b{font-size:16px}
 @media (max-width:880px){
  .page{grid-template-columns:1fr}
  .stage{height:clamp(380px,64vh,640px)}

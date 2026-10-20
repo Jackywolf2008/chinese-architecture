@@ -20,22 +20,8 @@ const UI_OUT = path.resolve(HERE, '../public/ui');
 const W = 1920, H = 1080, ASPECT = W / H, FOV = 34;
 const WORKERS = +process.env.WORKERS || 4;
 
-// ---------- 页面补丁：只在本地服务时注入，不改动仓库里的页面 ----------
-const PATCHES = [
-  // 由抓取脚本逐帧指定相机
-  ['if(ptr.size)act=true;', 'if(ptr.size)act=true;if(window.__camFrame){const c=window.__camFrame;view.t.set(c.t[0],c.t[1],c.t[2]);view.r=c.r;view.th=c.th;view.ph=c.ph;act=true;}'],
-  // 每帧都重绘，保证读到的画布是当帧内容
-  ['if(needs>0){', 'if(needs>0||window.__forceRender){'],
-  // 几何不动的镜头可以跳过阴影贴图重算（光源固定，只有相机在动）；__inkOnly 时只画墨线描边（封面用的线稿）
-  ['renderer.shadowMap.needsUpdate=true;renderer.render(scene,cam);', 'if(!window.__noShadowUpd)renderer.shadowMap.needsUpdate=true;if(window.__inkOnly)renderer.clear();else renderer.render(scene,cam);'],
-];
-function patchHTML(s) {
-  for (const [a, b] of PATCHES) {
-    if (!s.includes(a)) throw new Error(`页面结构变了，找不到补丁位置：${a}`);
-    s = s.replace(a, b);
-  }
-  return s;
-}
+// 逐帧相机、强制重绘、跳过阴影和只留墨线，都由阅读器看 window.__camFrame / __forceRender / __noShadowUpd / __inkOnly。
+// 这些标志平时是空的，抓取脚本不用再改页面源码。
 
 const VCLOCK = `(()=>{let now=0;performance.now=()=>now;let rq=[],rid=1,ts=[],tid=1;
 window.requestAnimationFrame=cb=>{const id=rid++;rq.push([id,cb]);return id;};
@@ -50,7 +36,7 @@ const CLEAN_CSS = `body{overflow:hidden;background:transparent}.top,.chrome,.ban
 .wrap{padding:0!important;max-width:none!important}.win{border:0!important;border-radius:0!important;box-shadow:none!important;background:none!important}
 .page{display:block!important}.stage{position:fixed!important;inset:0!important;height:100vh!important;width:100vw!important;background:none!important}`;
 
-const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.jpg': 'image/jpeg', '.png': 'image/png' };
+const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css; charset=utf-8', '.jpg': 'image/jpeg', '.png': 'image/png' };
 function serve() {
   return new Promise(res => {
     const srv = http.createServer((q, r) => {
@@ -60,7 +46,6 @@ function serve() {
       if (!f.startsWith(SITE)) { r.writeHead(403); r.end(); return; }
       fs.readFile(f, (e, b) => {
         if (e) { r.writeHead(404); r.end(); return; }
-        if (f.endsWith('.html')) b = patchHTML(b.toString());
         r.writeHead(200, { 'content-type': MIME[path.extname(f)] || 'application/octet-stream' });
         r.end(b);
       });
