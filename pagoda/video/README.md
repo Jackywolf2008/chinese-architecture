@@ -33,7 +33,7 @@ npm run page             # 生成独立的视频页 ../../docs/video/
 npm run cover            # 生成项目封面 out/cover.jpg（3840×2160）
 ```
 
-- `capture/capture.mjs`：本地发布 `../../docs/`，打开 `pagoda/index.html`，用虚拟时钟接管页面的 `performance.now`、`requestAnimationFrame` 和 `setTimeout`，每推进 1/30 秒从 WebGL 画布读一帧（透明背景 WebP），同时记下每帧标注的位置。运镜和动作在 `capture/shots.mjs` 里按时间点编排。只在本地服务时给页面打三个小补丁（逐帧指定相机、强制重绘、跳过不必要的阴影重算），不改仓库里的页面。已抓完的镜头会跳过，删掉 `public/shots/<镜头>` 可以重抓。没有显卡时靠软件渲染，整套大约要一小时。
+- `capture/capture.mjs`：本地发布 `../../docs/`，打开 `pagoda/index.html`，用虚拟时钟接管页面的 `performance.now`、`requestAnimationFrame` 和 `setTimeout`，每推进 1/30 秒从 WebGL 画布读一帧（透明背景 WebP），同时记下每帧标注的位置。运镜和动作在 `capture/shots.mjs` 里按时间点编排。逐帧相机、强制重绘、跳过阴影和只留墨线由阅读器看 `window.__camFrame` 等标志，抓取脚本不再改页面。已抓完的镜头会跳过，删掉 `public/shots/<镜头>` 可以重抓。没有显卡时靠软件渲染，整套大约要一小时。
 - `scripts/fetch-fonts.mjs`：扫描视频里用到的字，从 Google Fonts 下载马善政、思源宋体、思源黑体的子集。
 - `scripts/make-music.mjs`：程序合成配乐，D 宫五声音阶的拨弦旋律加铁马风铃，段落按 `src/timeline.json` 的场景时间安排。
 - `src/`：Remotion 合成。场景时长在 `src/timeline.json`，文字在 `src/script.ts`。改了三维镜头的时长，要同时改 `capture/shots.mjs` 并重抓。
